@@ -1,0 +1,6 @@
+
+# installed modules
+node_modules
+
+# configuration of backend
+config.js
