@@ -4,3 +4,6 @@ node_modules
 
 # configuration of backend
 config.js
+
+# frontedn config
+.env
