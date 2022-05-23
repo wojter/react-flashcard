@@ -10,9 +10,9 @@ router.get('/cards', cardActions.getAllCards)
 // save new card
 router.post('/cards', cardActions.saveCard)
 // delete card
-router.delete('/cards/:id', cardActions.deleteCard)
+router.delete('/cards/:_id', cardActions.deleteCard)
 // update card
-router.put('/cards/:id', cardActions.updateCard) 
+router.put('/cards/:_id', cardActions.updateCard) 
 
 
 // get all decks
@@ -20,9 +20,9 @@ router.get('/deck', cardActions.getAllDecks)
 // save new deck
 router.post('/deck', cardActions.saveDeck)
 // delete deck
-router.delete('/deck/:id', cardActions.deleteDeck)
+router.delete('/deck/:_id', cardActions.deleteDeck)
 // update deck
-router.put('/deck/:id', cardActions.updateDeck) 
+router.put('/deck/:_id', cardActions.updateDeck) 
 
 
 
