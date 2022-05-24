@@ -5,8 +5,8 @@ const router = express.Router();
 const cardActions = require('../actions/api/cardActions')
 
 
-// get all cards
-router.get('/cards', cardActions.getAllCards)
+// get all cards of one deck
+router.get('/cards/:_id', cardActions.getAllCards)
 // save new card
 router.post('/cards', cardActions.saveCard)
 // delete card
@@ -17,6 +17,8 @@ router.put('/cards/:_id', cardActions.updateCard)
 
 // get all decks
 router.get('/deck', cardActions.getAllDecks)
+//get one deck
+router.get('/deck/:_id', cardActions.getDeck)
 // save new deck
 router.post('/deck', cardActions.saveDeck)
 // delete deck

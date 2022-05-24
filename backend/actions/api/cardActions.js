@@ -4,8 +4,11 @@ const Deck = require('../../db/models/deck');
 class cardActions {
     async getAllCards (req, res) {
         let doc;
+        const _id = req.params._id;
+        console.log(_id);
         try {
-            doc = await Card.find({});
+            doc = await Card.find({category: _id}).exec();
+            console.log("try");
         }
         catch (err) {
             return res.status(500).json({message: err.message});
@@ -59,6 +62,17 @@ class cardActions {
         let doc;
         try {
             doc = await Deck.find({});
+        }
+        catch (err) {
+            return res.status(500).json({message: err.message});
+        }
+        res.status(200).json(doc);
+    }
+    async getDeck (req, res) {
+        let doc;
+        const _id = req.params._id;
+        try {
+            doc = await Deck.findOne({_id: _id});
         }
         catch (err) {
             return res.status(500).json({message: err.message});
