@@ -17,9 +17,11 @@ function HomePage () {
         })
         .catch(error=> console.error('Error: $(error}'))
     }
+    
     useEffect(() => {
         getAllDecks();
     }, []);
+
     return (
         <div className="decks-list">
             <div className='header'>
@@ -35,6 +37,7 @@ function HomePage () {
                     <Deck
                         key={deck._id}
                         title={deck.title}
+                        _id={deck._id}
                     />
                 ))}
             </div>
