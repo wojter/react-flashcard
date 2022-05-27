@@ -31,4 +31,9 @@ body {
   padding: 10px 0; 
   margin: 0;
 }
-
+/* edit card screen */
+.card {
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  margin: 20px 5px;
+}

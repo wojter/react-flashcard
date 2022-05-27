@@ -5,10 +5,8 @@ class cardActions {
     async getAllCards (req, res) {
         let doc;
         const _id = req.params._id;
-        console.log(_id);
         try {
             doc = await Card.find({category: _id}).exec();
-            console.log("try");
         }
         catch (err) {
             return res.status(500).json({message: err.message});
