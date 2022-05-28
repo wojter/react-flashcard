@@ -3,12 +3,16 @@ import { useState, useEffect } from 'react';
 import { MdArrowBackIosNew } from 'react-icons/md';
 import { AiFillPlusCircle} from 'react-icons/ai';
 
+
 import axios from "../../axios";
 import Card from "./Card";
+import TitleModal from "./TitleModal";
 
 const ListCards = () => {
 
     const { _id } = useParams();
+
+    const [showSetTitle, setShowSetTitle] = useState(false);
 
     const [selectedDeck, setSelectedDeck] = useState([]);
     const [userCards, setUserCards] = useState([]);
@@ -55,14 +59,27 @@ const ListCards = () => {
         setSelectedDeck(deck);
     }
 
+    const handleShowModalSetTitle = () => {
+        setShowSetTitle(true);
+    }
+
+    const handleCloseModalSetTitle = () => {
+        setShowSetTitle(false);
+    }
+
     return (
         <div>
             <div className="header">
                 <Link to={'/'}>
                     <MdArrowBackIosNew className="icon" />
                 </Link>
-                <h2>{selectedDeck.title}</h2>
-                <AiFillPlusCircle className="icon"/>
+                <h2 onClick={handleShowModalSetTitle}>{selectedDeck.title}</h2>
+                <AiFillPlusCircle className="icon" />
+                <TitleModal 
+                    showSetTitle={showSetTitle}
+                    selectedDeck={selectedDeck}
+                    handleCloseModalSetTitle={handleCloseModalSetTitle}
+                />
             </div>
             <div className="cards-list">
                 {userCards.map((card) => (
