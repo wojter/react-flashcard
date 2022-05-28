@@ -9,6 +9,11 @@ const TitleModal = (props) => {
         setNewTitle(e.target.value);
     }
 
+    const handleClose = () => {
+        setNewTitle('');
+        props.handleCloseModalSetTitle();
+    }
+
     const handleSubmit = () => {
 
         const deck = {
@@ -16,15 +21,17 @@ const TitleModal = (props) => {
             title: newTitle
         }
         props.onSubmit(deck);
+        handleClose();
     }
 
     return ( 
         <Modal
                     show={props.showSetTitle}
-                    onHide={props.handleCloseModalSetTitle}
+                    onHide={handleClose}
                     backdrop="static"
                     keyboard={false}
-         >
+                    //onExited={setNewTitle('')}
+        >
                     <Modal.Header closeButton>
                         <Modal.Title>Change title</Modal.Title>
                     </Modal.Header>
@@ -50,7 +57,7 @@ const TitleModal = (props) => {
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={props.handleCloseModalSetTitle}>
+                        <Button variant="secondary" onClick={handleClose}>
                             Cancel
                         </Button>
                         <Button variant="primary" onClick={handleSubmit}>Change</Button>
