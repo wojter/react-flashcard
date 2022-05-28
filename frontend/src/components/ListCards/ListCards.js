@@ -79,6 +79,7 @@ const ListCards = () => {
                     showSetTitle={showSetTitle}
                     selectedDeck={selectedDeck}
                     handleCloseModalSetTitle={handleCloseModalSetTitle}
+                    onSubmit={deck => updateDeckTitle(deck)}
                 />
             </div>
             <div className="cards-list">
