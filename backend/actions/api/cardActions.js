@@ -41,18 +41,26 @@ class cardActions {
         const _id = req.params._id;
         const front = req.body.front;
         const back = req.body.back;
-        const favourite = req.body.favourite;
-        const known = req.body.known;
+        let card;
+        try {
+            card = await Card.findOne({_id: _id});
+            card.front = front;
+            card.back = back;
+            await card.save();
+        } catch (err){
+            return res.status(422).json({ message: err.message})
+        }
 
-        const card = await Card.findOne({_id: _id});
-
-        card.front = front;
-        card.back = back;
-        card.favourite = favourite;
-        card.known = known;
-
-        await card.save();
-        
+        // get all cards from deck
+        // let doc;
+        // const category = req.body.category;
+        // try {
+        //     doc = await Card.find({category: category}).exec();
+        // }
+        // catch (err) {
+        //     return res.status(500).json({message: err.message});
+        // }
+        // res.status(201).json(doc);  
         res.status(201).json(card);
     }
 

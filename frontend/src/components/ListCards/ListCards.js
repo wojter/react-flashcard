@@ -40,7 +40,7 @@ const ListCards = () => {
             setSelectedDeck(deck);
             console.log(deck);
         })
-        .catch(error=> console.error('Error: $(error}'))
+        .catch(error=> console.error('Error: ', error))
     }
 
     useEffect(() => {
@@ -54,9 +54,22 @@ const ListCards = () => {
             .then((response) => {
                 console.log(response);
             })
-            .catch(error => console.log('Error: ${error}'))
+            .catch(error => console.log('Error: ', error))
         // edit at frontend
         setSelectedDeck(deck);
+    }
+
+    const updateCard = (card) => {
+        // edit backend
+        axios.put('/cards/' + card._id, card)
+            .then((response) => {
+                console.log(response);
+
+            })
+            .catch(error => console.log('Error: ', error))
+        // edit at frontend
+        //setUserCards(allCards);
+
     }
 
     const handleShowModalSetTitle = () => {
@@ -88,6 +101,8 @@ const ListCards = () => {
                         key={card._id}
                         front={card.front}
                         back={card.back}
+                        card={card}
+                        onSubmit={card => updateCard(card)}
                     />
                 ))}
             </div>
