@@ -23,7 +23,12 @@ const Card = (props) => {
     }
 
     const handleSubmit = () => {
-        console.log('entered submit');
+        if (newFront == '') {
+            newFront = props.card.front;
+        }
+        if (newBack == '') {
+            newBack = props.card.back;
+        }
         const card = {
             _id: props.card._id,
             category: props.card.category,
@@ -33,16 +38,21 @@ const Card = (props) => {
             // favoiurite: props.card.favoiurite
         }
         props.onSubmit(card);
-        console.log('handled submit')
 
         handleClose();
+    }
+
+    const handleShowModal = () => {
+        setShowChangeCard(true);
+        setNewFront(props.card.front);
+        setNewBack(props.card.back);
     }
 
 
     return ( 
 
         <div className='card' >
-            <div className="card-view" onClick={() => setShowChangeCard(true)}>
+            <div className="card-view" onClick={handleShowModal}>
             <p>Front: {props.card.front}</p>
             <p>Back: {props.card.back}</p>
             </div>
