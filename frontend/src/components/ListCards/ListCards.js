@@ -7,12 +7,14 @@ import { AiFillPlusCircle} from 'react-icons/ai';
 import axios from "../../axios";
 import Card from "./Card";
 import TitleModal from "./TitleModal";
+import CreateCard from "./CreateCard";
 
 const ListCards = () => {
 
     const { _id } = useParams();
 
     const [showSetTitle, setShowSetTitle] = useState(false);
+    const [showCreateCard, setShowCreateCard] = useState(false);
 
     const [selectedDeck, setSelectedDeck] = useState([]);
     const [userCards, setUserCards] = useState([]);
@@ -72,12 +74,26 @@ const ListCards = () => {
 
     }
 
+    const createCard = (card) => {
+        // edit backend
+        axios.post('/cards/', card)
+            .then((response)=> {
+                console.log(response);
+            })
+            .catch(error => console.log('Error: ', error))
+
+    }
+
     const handleShowModalSetTitle = () => {
         setShowSetTitle(true);
     }
 
     const handleCloseModalSetTitle = () => {
         setShowSetTitle(false);
+    }
+
+    const handleCloseModalCreateCard = () => {
+        setShowCreateCard(false);
     }
 
     return (
@@ -87,13 +103,22 @@ const ListCards = () => {
                     <MdArrowBackIosNew className="icon" />
                 </Link>
                 <h2 onClick={handleShowModalSetTitle}>{selectedDeck.title}</h2>
-                <AiFillPlusCircle className="icon" />
-                <TitleModal 
+                <TitleModal
                     showSetTitle={showSetTitle}
                     selectedDeck={selectedDeck}
                     handleCloseModalSetTitle={handleCloseModalSetTitle}
                     onSubmit={deck => updateDeckTitle(deck)}
                 />
+                <AiFillPlusCircle className="icon"
+                    onClick={() => setShowCreateCard(true)}
+                />
+                <CreateCard 
+                    showModal={showCreateCard}
+                    _id={_id}
+                    closeModal={handleCloseModalCreateCard}
+                    onSubmit={card => createCard(card)}    
+                />
+
             </div>
             <div className="cards-list">
                 {userCards.map((card) => (
