@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import axios from '../../axios';
 import Deck from './Deck';
 import { AiFillPlusCircle} from 'react-icons/ai';
+import CreateNewDeck from './CreateNewDeck';
 
 function HomePage () {
 
     const [userDecks, setUserDecks] = useState([]);
+    const [showModalCreateDeck, setShowModalCreateDeck] = useState(false);
 
     const getAllDecks = () => {
         axios.get('/deck')
@@ -15,7 +17,19 @@ function HomePage () {
             setUserDecks(allDecks);
             console.log(allDecks);
         })
-        .catch(error=> console.error('Error: $(error}'))
+        .catch(error=> console.error('Error: ', error))
+    }
+
+    const createDeck = (deck) => {
+        axios.post('/deck', deck)
+            .then((response)=>{
+                console.log(response);
+            })
+            .catch(error => console.log('Error: ', error))
+        
+        const decks = [...userDecks];
+        decks.push(deck);
+        setUserDecks(decks);
     }
     
     useEffect(() => {
@@ -28,7 +42,12 @@ function HomePage () {
                 <h2>Flashcards</h2>
                 <AiFillPlusCircle 
                     className="add-button icon" 
-                    onClick={() => console.log("click")}
+                    onClick={() => setShowModalCreateDeck(true)}
+                />
+                <CreateNewDeck 
+                    showModal={showModalCreateDeck}
+                    closeModal={() => setShowModalCreateDeck(false)}
+                    onSubmit={deck => createDeck(deck)}
                 />
                 <div className="separator" />
             </div>
