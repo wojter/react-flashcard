@@ -41,6 +41,11 @@ const Card = (props) => {
 
         handleClose();
     }
+    
+    const handleDelete = () => {
+        props.onDelete(props.card._id);
+        handleClose();
+    }
 
     const handleShowModal = () => {
         setShowChangeCard(true);
@@ -89,6 +94,7 @@ const Card = (props) => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
+                    <Button variant="primary" onClick={handleDelete}>Delete</Button>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>

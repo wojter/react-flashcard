@@ -86,8 +86,17 @@ const ListCards = () => {
             })
             .catch(error => console.log('Error: ', error))
         // edit frontend
-        const cards = userCards;
+        const cards = [...userCards];
         cards.push(card);
+        setUserCards(cards);
+    }
+
+    const deleteCard = (_id) => {
+        // edit backend
+        axios.delete('/cards/'+ _id);
+        // edit frontend
+        const cards = [...userCards]
+                        .filter(card => card._id !== _id);
         setUserCards(cards);
     }
 
@@ -135,6 +144,7 @@ const ListCards = () => {
                         back={card.back}
                         card={card}
                         onSubmit={card => updateCard(card)}
+                        onDelete={_id => deleteCard(_id)}
                     />
                 ))}
             </div>
