@@ -53,7 +53,6 @@ const Card = (props) => {
         setNewBack(props.card.back);
     }
 
-
     return ( 
 
         <div className='card' >

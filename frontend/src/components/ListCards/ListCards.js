@@ -28,7 +28,7 @@ const ListCards = () => {
             setUserCards(allCards);
             console.log(allCards);
         })
-        .catch(error=> console.error('Error: $(error}'))
+        .catch(error=> console.error('Error: ', error))
     }
 
     const getDeck = () => {
