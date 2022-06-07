@@ -80,15 +80,18 @@ const ListCards = () => {
 
     const createCard = (card) => {
         // edit backend
+        var cardRes;
         axios.post('/cards/', card)
             .then((response)=> {
-                console.log(response);
+            // edit frontend                
+            cardRes=response.data;
+            const cards = [...userCards];
+            cards.push(cardRes);
+            setUserCards(cards);  
             })
             .catch(error => console.log('Error: ', error))
-        // edit frontend
-        const cards = [...userCards];
-        cards.push(card);
-        setUserCards(cards);
+
+
     }
 
     const deleteCard = (_id) => {

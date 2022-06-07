@@ -23,13 +23,14 @@ function HomePage () {
     const createDeck = (deck) => {
         axios.post('/deck', deck)
             .then((response)=>{
-                console.log(response);
+                // console.log(response);
+                const decks = [...userDecks];
+                decks.push(response.data);
+                setUserDecks(decks);
             })
             .catch(error => console.log('Error: ', error))
         
-        const decks = [...userDecks];
-        decks.push(deck);
-        setUserDecks(decks);
+
     }
     
     useEffect(() => {
