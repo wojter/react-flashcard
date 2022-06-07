@@ -19,8 +19,6 @@ const ListCards = () => {
     const [selectedDeck, setSelectedDeck] = useState([]);
     const [userCards, setUserCards] = useState([]);
     
-
-
     const getAllCards = () => {
         axios.get('/cards/' + _id)
         .then((response)=>{
@@ -46,8 +44,8 @@ const ListCards = () => {
     }
 
     useEffect(() => {
-        getAllCards();
         getDeck();
+        getAllCards();
     }, [])
 
     const updateDeckTitle = (deck) => {
@@ -70,8 +68,14 @@ const ListCards = () => {
             })
             .catch(error => console.log('Error: ', error))
         // edit at frontend
-        //setUserCards(allCards);
-
+        var cards = userCards;
+        var index = cards.findIndex(x => x._id === card._id)
+        if (index >= 0) {
+            console.log(cards[index]);
+            cards[index] = card;
+            console.log(cards[index]);
+            setUserCards(cards);
+        }
     }
 
     const createCard = (card) => {
@@ -81,7 +85,10 @@ const ListCards = () => {
                 console.log(response);
             })
             .catch(error => console.log('Error: ', error))
-
+        // edit frontend
+        const cards = userCards;
+        cards.push(card);
+        setUserCards(cards);
     }
 
     const handleShowModalSetTitle = () => {

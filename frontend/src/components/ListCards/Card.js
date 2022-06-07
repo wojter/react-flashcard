@@ -34,8 +34,8 @@ const Card = (props) => {
             category: props.card.category,
             front: newFront,
             back: newBack,
-            // known: props.card.known,
-            // favoiurite: props.card.favoiurite
+            known: props.card.known,
+            favourite: props.card.favourite
         }
         props.onSubmit(card);
 
