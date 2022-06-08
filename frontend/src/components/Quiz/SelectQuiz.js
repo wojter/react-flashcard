@@ -57,6 +57,27 @@ const SelectQuiz = () => {
         setSelectedCard(userCards[0]);
     }
 
+    const quizKnow = (props) => {
+        const cards = [...userCards]
+                        .filter(card => card.known === props);
+        setUserCards(cards);
+    }
+
+    const startQuiz = () => {
+
+    }
+    const nextQuestion = () => {
+        if (selectedIndex + 1 >= userCards.length) {
+            setDisplayStart(false);
+            setDisplayQuiz(false);
+            setDisplaySummary(true);
+        } else {
+            setSelectedIndex(selectedIndex + 1);
+            setSelectedCard(userCards[selectedIndex]);
+        }
+
+    }
+
     return ( 
         <div>
             <div className="header">
@@ -69,9 +90,13 @@ const SelectQuiz = () => {
             <div className="startButtons">
                 <button onClick={quizAll}>All</button>
                 <button onClick={quizFavourite}>Favourites</button>
+                <button onClick={()=>quizKnow(1)}>Know well</button>
+                <button onClick={()=>quizKnow(2)}>Know Medium</button>
+                <button onClick={()=>quizKnow(3)}>Dont Know</button>
             </div>
             <QuizCard
                 card={selectedCard}
+                goNext={nextQuestion}
             />
         </div>
      );

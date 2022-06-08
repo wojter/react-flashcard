@@ -39,3 +39,7 @@ body {
 }
 
 /* QUIZ CARD */
+.flippy-container {
+  margin: auto;
+  width: 60%;
+}

@@ -1,24 +1,27 @@
 import { FaRegMeh, FaRegSmile, FaRegFrown } from 'react-icons/fa';
-import { CSSTransition } from 'react-transition-group';
 import { useState } from 'react';
-
+import CardFlip from './CardFlip';
 
 const QuizCard = (props) => {
 
-    const [showFront, setShowFront] = useState(true);
+    // const [showFront, setShowFront] = useState(true);
 
-    const flipCard = () => {
-        setShowFront(!showFront);
+    // const flipCard = () => {
+    //     setShowFront(!showFront);
+    // }
+    const handleKnow = (level) => {
+        props.card.known = level;
+        props.goNext();
     }
 
     return ( 
         <div className='card-container'>
-            <button onClick={flipCard}>flipCard</button>
-
-            <div className="card">
-                <p></p>{showFront ? (<p>{props.card.front}</p>) :(<p>{props.card.back}</p>) }
-            </div>
-
+            <CardFlip
+                card={props.card}
+            />
+            <button onClick={()=>handleKnow(1)}><FaRegSmile /> know well</button>
+            <button onClick={()=>handleKnow(2)}><FaRegMeh /> know medium</button>
+            <button onClick={()=>handleKnow(3)}><FaRegFrown /> don't know</button>
         </div>
      );
 }

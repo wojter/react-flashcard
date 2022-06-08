@@ -29,9 +29,7 @@ function HomePage () {
                 setUserDecks(decks);
             })
             .catch(error => console.log('Error: ', error))
-        
-
-    }
+       }
     
     useEffect(() => {
         getAllDecks();
