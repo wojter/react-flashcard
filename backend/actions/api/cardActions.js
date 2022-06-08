@@ -41,11 +41,15 @@ class cardActions {
         const _id = req.params._id;
         const front = req.body.front;
         const back = req.body.back;
+        const favourite = req.body.favourite;
+        const known = req.body.known;
         let card;
         try {
             card = await Card.findOne({_id: _id});
             card.front = front;
             card.back = back;
+            card.favourite = favourite;
+            card.known = known;
             await card.save();
         } catch (err){
             return res.status(422).json({ message: err.message})

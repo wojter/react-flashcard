@@ -41,5 +41,23 @@ body {
 /* QUIZ CARD */
 .flippy-container {
   margin: auto;
-  width: 60%;
+  width: 85%;
+  height: 280px;
+  max-width: 500px;
+  max-height: 500px;
+}
+.flippy-container .flippy-card {
+  border-radius: 10px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.flippy-container .flippy-card p {
+  font-size: 2em;
+}
+.flippy-container .flippy-front {
+  background-color: aliceblue;
+}
+.flippy-container .flippy-back {
+  background-color: rgb(215, 219, 222);
 }

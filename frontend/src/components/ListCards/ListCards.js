@@ -68,12 +68,10 @@ const ListCards = () => {
             })
             .catch(error => console.log('Error: ', error))
         // edit at frontend
-        var cards = userCards;
+        var cards = [...userCards];
         var index = cards.findIndex(x => x._id === card._id)
         if (index >= 0) {
-            console.log(cards[index]);
             cards[index] = card;
-            console.log(cards[index]);
             setUserCards(cards);
         }
     }

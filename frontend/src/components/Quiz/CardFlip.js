@@ -1,5 +1,5 @@
 import Flippy, { FrontSide, BackSide } from 'react-flippy';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 const CardFlip = (props) => {
 
@@ -7,16 +7,17 @@ const CardFlip = (props) => {
 
     return (
         <div className="card-flip">
-            <Flippy
-                flipOnClick={true}
+            <Flippy 
+                onClick={props.flipCard}
+                isFlipped={props.isFlipped}
+                flipOnClick={false}
                 ref={ref}
-                style={{ width: '200px', height: '200px' }}
             >
-                <FrontSide style={{ backgroundColor: '#41669d' }} 
+                <FrontSide 
                     onClick={() => { ref.current.toggle(); }}>
                     <p>{ props.card.front }</p>
                 </FrontSide>
-                <BackSide style={{ backgroundColor: '#175852' }}>
+                <BackSide >
                     <p>{ props.card.back } </p>
                 </BackSide>
             </Flippy>

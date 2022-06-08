@@ -12,7 +12,7 @@ const SelectQuiz = () => {
     const [selectedDeck, setSelectedDeck] = useState([]);
     const [userCards, setUserCards] = useState([]);
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const [selectedCard, setSelectedCard] = useState({});
+    const [selectedCard, setSelectedCard] = useState({frot: 'test', back: 'test back'});
     const [displayStart, setDisplayStart] = useState(true);
     const [displayQuiz, setDisplayQuiz] = useState(false);
     const [displaySummary, setDisplaySummary] = useState(false);
@@ -42,6 +42,14 @@ const SelectQuiz = () => {
         .catch(error=> console.error('Error: ', error))
     }
 
+    const updateCard = (card) => {
+        axios.put('/cards/'+ card._id, card)
+            .then((response)=>{
+                console.log(response)
+            })
+            .catch(error => console.error('Error: ', error))
+    }
+
     useEffect(() => {
         getDeck();
         getAllCards();
@@ -67,14 +75,15 @@ const SelectQuiz = () => {
 
     }
     const nextQuestion = () => {
+        updateCard(selectedCard);
         if (selectedIndex + 1 >= userCards.length) {
             setDisplayStart(false);
             setDisplayQuiz(false);
             setDisplaySummary(true);
         } else {
             setSelectedIndex(selectedIndex + 1);
-            setSelectedCard(userCards[selectedIndex]);
-        }
+            setSelectedCard(userCards[selectedIndex+1]);
+       }
 
     }
 
