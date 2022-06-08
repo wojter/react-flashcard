@@ -37,10 +37,13 @@ body {
   background-color: rgb(255, 255, 255);
   margin: 20px 5px;
 }
-
+/* QUIZ SITE */
+.startButtons {
+  justify-content: center;
+}
 /* QUIZ CARD */
 .flippy-container {
-  margin: auto;
+  margin: 20px auto;
   width: 85%;
   height: 280px;
   max-width: 500px;
@@ -60,4 +63,8 @@ body {
 }
 .flippy-container .flippy-back {
   background-color: rgb(215, 219, 222);
+}
+.card-container .known-buttons button {
+  padding: 7px 3px;
+  margin: 2px 3px;
 }
