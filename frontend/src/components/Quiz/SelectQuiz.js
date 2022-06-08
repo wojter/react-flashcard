@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 
 import axios from "../../axios";
 import QuizCard from "./QuizCard";
-
+import QuizSummary from "./QuizSummary";
 
 
 const SelectQuiz = () => {
@@ -167,16 +167,18 @@ const SelectQuiz = () => {
             </div>  
             )}
             {displayQuiz && (
-            <QuizCard
-                card={selectedCard}
-                goNext={nextQuestion}
-                actualIndex={selectedIndex}
-                totalNumber={userSelectedCards.length}
-            />  
+                <QuizCard
+                    card={selectedCard}
+                    goNext={nextQuestion}
+                    actualIndex={selectedIndex}
+                    totalNumber={userSelectedCards.length}
+                />
             )}
-            { displaySummary && ( <div/>)}
-
-
+            {displaySummary && (
+            <QuizSummary
+                typeQuiz={typeQuiz}
+                selectedCards={userSelectedCards}
+            />)}
 
         </div>
      );
