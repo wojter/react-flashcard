@@ -38,6 +38,7 @@ function HomePage () {
     return (
         <div className="decks-list">
             <div className='header'>
+                <div style={ {width: '2.5em',  }} ></div>
                 <h2>Flashcards</h2>
                 <AiFillPlusCircle 
                     className="add-button icon" 
@@ -48,7 +49,6 @@ function HomePage () {
                     closeModal={() => setShowModalCreateDeck(false)}
                     onSubmit={deck => createDeck(deck)}
                 />
-                <div className="separator" />
             </div>
             <div>
                 {userDecks.map((deck) => (

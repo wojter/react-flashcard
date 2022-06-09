@@ -1,13 +1,14 @@
-import { Link, useParams } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from 'react';
 import { MdArrowBackIosNew } from 'react-icons/md';
 import { AiFillPlusCircle} from 'react-icons/ai';
-
+import { IoTrashBin } from 'react-icons/io5';
 
 import axios from "../../axios";
 import Card from "./Card";
 import TitleModal from "./TitleModal";
 import CreateCard from "./CreateCard";
+import { Modal, Button } from "react-bootstrap";
 
 const ListCards = () => {
 
@@ -15,10 +16,14 @@ const ListCards = () => {
 
     const [showSetTitle, setShowSetTitle] = useState(false);
     const [showCreateCard, setShowCreateCard] = useState(false);
+    const [showDeleteDeck, setShowDeleteDeck] = useState(false);
 
     const [selectedDeck, setSelectedDeck] = useState([]);
     const [userCards, setUserCards] = useState([]);
     
+    const navigate = useNavigate();
+    const handleRedirect = useCallback(()=> navigate('/', {replace: true}), [navigate])
+
     const getAllCards = () => {
         axios.get('/cards/' + _id)
         .then((response)=>{
@@ -101,6 +106,11 @@ const ListCards = () => {
         setUserCards(cards);
     }
 
+    const handleDeleteDeck = (_id) => {
+        axios.delete('/deck/' + _id);
+        handleRedirect();
+    }
+
     const handleShowModalSetTitle = () => {
         setShowSetTitle(true);
     }
@@ -114,7 +124,7 @@ const ListCards = () => {
     }
 
     return (
-        <div>
+        <div className="card-list">
             <div className="header">
                 <Link to={'/'}>
                     <MdArrowBackIosNew className="icon" />
@@ -126,20 +136,41 @@ const ListCards = () => {
                     handleCloseModalSetTitle={handleCloseModalSetTitle}
                     onSubmit={deck => updateDeckTitle(deck)}
                 />
-                <AiFillPlusCircle className="icon"
-                    onClick={() => setShowCreateCard(true)}
-                />
-                <CreateCard 
-                    showModal={showCreateCard}
-                    _id={_id}
-                    closeModal={handleCloseModalCreateCard}
-                    onSubmit={card => createCard(card)}    
-                />
-
+                <div>
+                    <AiFillPlusCircle className="icon"
+                        onClick={() => setShowCreateCard(true)}
+                    />
+                    <CreateCard
+                        showModal={showCreateCard}
+                        _id={_id}
+                        closeModal={handleCloseModalCreateCard}
+                        onSubmit={card => createCard(card)}
+                    />
+                    <IoTrashBin className="icon"
+                        onClick={() => setShowDeleteDeck(true)}
+                    />
+                    <Modal
+                        show={showDeleteDeck}
+                        onHide={() => setShowDeleteDeck(false)}
+                        backdrop="static"
+                        keyboard={false}
+                    //onExited={setNewTitle('')}
+                    >
+                        <Modal.Header closeButton>
+                            <Modal.Title>Do you realy want delete deck?</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={() => setShowDeleteDeck(false)}>
+                                Cancel
+                            </Button>
+                            <Button variant="primary" onClick={() => handleDeleteDeck(_id)}>Delete</Button>
+                        </Modal.Footer>
+                    </Modal>
+                </div>
             </div>
             <div className="cards-list">
                 {userCards.map((card) => (
-                    <Card 
+                    <Card
                         key={card._id}
                         front={card.front}
                         back={card.back}

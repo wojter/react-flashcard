@@ -147,12 +147,13 @@ const SelectQuiz = () => {
 
 
     return ( 
-        <div>
+        <div className="quiz-page">
             <div className="header">
             <Link to={'/'}>
                     <MdArrowBackIosNew className="icon" />
                 </Link>
             <h2>{ selectedDeck.title }</h2>
+            <div style={{width: '2.5em'}}/>
             </div>
             {displayStart && (
             <div className="quiz-start">

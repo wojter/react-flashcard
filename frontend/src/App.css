@@ -5,21 +5,18 @@
 body {
   background-color: rgb(200, 195, 195);
 }
-.decks-list .header .separator {
-  border-bottom: 1px solid rgb(0, 0, 0);
-  max-width: 90%;
+.header {
+  padding: 20px 0;
+  background-color: rgb(119, 185, 244);
 }
-.decks-list .header h2 {
+.header h2 {
   font-size: 30px;
 }
-.decks-list .add-button {
-  position: absolute;
-  right: 5px;
-  top: 10px;
-}
 .icon {
-  height: 2em;
-  width: 2em;
+  height: 2.4em;
+  width: 2.4em;
+  color: rgb(5, 39, 85);
+  padding: 3px;
 }
 .deck-preview {
   border-radius: 10px;
@@ -31,6 +28,13 @@ body {
   padding: 10px 0; 
   margin: 0;
 }
+.quiz-page .header,
+.card-list .header,
+.decks-list .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 /* edit card screen */
 .card {
   border-radius: 10px;
@@ -41,7 +45,14 @@ body {
 .startButtons {
   justify-content: center;
 }
-
+.card-list .cards-list .card .card-view p {
+  padding: 5px;
+  margin: 0;
+}
+.card-list .cards-list .card .card-view .one-line {
+  display: flex;
+  justify-content: center;
+}
 /* QUIZ CARD */
 .quiz-game .progress {
   margin: 1px 10px 10px;
@@ -75,4 +86,8 @@ body {
 .card-container .known-buttons button {
   padding: 7px 3px;
   margin: 2px 3px;
+}
+.quiz-page .quiz-start h3,
+.quiz-page .quiz-summary h3{
+  margin: 15px;
 }

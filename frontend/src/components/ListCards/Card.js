@@ -57,8 +57,8 @@ const Card = (props) => {
 
         <div className='card' >
             <div className="card-view" onClick={handleShowModal}>
-            <p>Front: {props.card.front}</p>
-            <p>Back: {props.card.back}</p>
+            <div className="one-line"><p>Front:</p><p>{props.card.front}</p></div>   
+            <div className="one-line"><p>Back:</p><p>{props.card.back}</p></div>
             </div>
             <Modal
                 show={showChangeCard}
