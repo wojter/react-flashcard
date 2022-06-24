@@ -1,6 +1,7 @@
 import { Modal, Button, Form } from 'react-bootstrap';
 import { useState } from 'react';
 import '../../App.css';
+import { CgArrowsExchangeV } from 'react-icons/cg';
 
 const Card = (props) => {
 
@@ -53,6 +54,12 @@ const Card = (props) => {
         setNewBack(props.card.back);
     }
 
+    const handleChange = () => {
+        let temp = newFront;
+        setNewFront(newBack);
+        setNewBack(temp);
+    }
+
     return ( 
 
         <div className='card' >
@@ -81,6 +88,7 @@ const Card = (props) => {
                                 autoFocus
                             />
                         </Form.Group>
+                        <CgArrowsExchangeV className="icon" onClick={handleChange} />
                         <Form.Group className="mb-3" controlId="Form.ControlInput3">
                             <Form.Label>back:</Form.Label>
                             <Form.Control

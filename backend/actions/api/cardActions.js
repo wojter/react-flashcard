@@ -143,9 +143,10 @@ async saveStats (req, res) {
     const wellKnown = req.body.wellKnown;
     const midKnown = req.body.midKnown;
     const badKnown = req.body.badKnown;
+    const length = req.body.length;
     let stat;
     try {
-        stat = new Stats({category, wellKnown, midKnown, badKnown});
+        stat = new Stats({category, wellKnown, midKnown, badKnown, length});
         await stat.save();
     } catch (err) {
         return res.status(422).json({ message: err.message})

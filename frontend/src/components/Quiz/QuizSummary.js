@@ -22,7 +22,9 @@ const QuizSummary = (props) => {
         let data = {category: selectedCards[0].category,
                         wellKnown: tempResult[2],
                         midKnown: tempResult[3],
-                    badKnown: tempResult[4]
+                        badKnown: tempResult[4],
+                        length: tempResult[0]
+
                 };
                 console.log(data)
         saveStats(data)
@@ -73,6 +75,7 @@ const QuizSummary = (props) => {
                     <Line name="Well Known" type="monotone" dataKey="wellKnown" stroke="#026b1a" />
                     <Line name="Mid Known" type="monotone" dataKey="midKnown" stroke="#8884b8" />
                     <Line name="Bad Known" type="monotone" dataKey="badKnown" stroke="#6b0202" />
+                    <Line name="Total" type="monotone" dataKey="length" stroke="#efefef" />
                     <CartesianGrid stroke="#ccc" />
                     <XAxis />
                     <YAxis />

@@ -14,6 +14,9 @@ const StatsSchema = new mongoose.Schema({
     badKnown: {
         type: Number,
     },
+    length: {
+        type: Number,
+    },
 
 })
 
