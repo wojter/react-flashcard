@@ -26,6 +26,9 @@ router.delete('/deck/:_id', cardActions.deleteDeck)
 // update deck
 router.put('/deck/:_id', cardActions.updateDeck) 
 
-
+// get deck stats
+router.get('/stats/:_id', cardActions.getStats)
+// save new stats
+router.post('/stats', cardActions.saveStats)
 
 module.exports = router;

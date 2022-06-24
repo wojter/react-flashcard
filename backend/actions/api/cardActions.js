@@ -1,5 +1,6 @@
 const Card = require('../../db/models/card');
 const Deck = require('../../db/models/deck');
+const Stats = require('../../db/models/stats');
 
 class cardActions {
     async getAllCards (req, res) {
@@ -123,6 +124,34 @@ class cardActions {
         
         res.status(201).json(deck);        
     }
+
+
+async getStats (req, res) {
+    let doc;
+    const _id = req.params._id;
+    try {
+        doc = await Stats.find({category: _id});
+    }
+    catch (err) {
+        return res.status(500).json({message: err.message});
+    }
+    res.status(200).json(doc);
 }
 
+async saveStats (req, res) {
+    const category = req.body.category;
+    const wellKnown = req.body.wellKnown;
+    const midKnown = req.body.midKnown;
+    const badKnown = req.body.badKnown;
+    let stat;
+    try {
+        stat = new Stats({category, wellKnown, midKnown, badKnown});
+        await stat.save();
+    } catch (err) {
+        return res.status(422).json({ message: err.message})
+    }
+    res.status(201).json(stat);
+}
+
+}
 module.exports = new cardActions;
