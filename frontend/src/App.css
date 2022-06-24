@@ -91,3 +91,10 @@ body {
 .quiz-page .quiz-summary h3{
   margin: 15px;
 }
+
+/* -------SUMMARY------ */
+.recharts-wrapper {
+  margin: auto;
+  width: 95%;
+  color: #6b0202
+}
