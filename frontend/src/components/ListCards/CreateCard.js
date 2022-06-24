@@ -1,6 +1,8 @@
 import { Modal, Button, Form } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import axios from '../../axios';
+
 
 const CreateCard = (props) => {
     
@@ -9,6 +11,10 @@ const CreateCard = (props) => {
 
     const [validated, setValidated] = useState(false);
     const [errors, setErrors] = useState({});
+
+    const [detectLanguageKey, setdetectedLanguageKey] = useState('');
+    const [selectedLanguageKey, setLanguageKey] = useState('')
+    const [languagesList, setLanguagesList] = useState([])
 
     const findFormErrors = () => {
         const newErrors = {};
@@ -23,6 +29,50 @@ const CreateCard = (props) => {
         return newErrors;
     }
 
+    const getLanguageSource = () => {
+        axios.post(`https://libretranslate.de/detect`, {
+            q: newFront
+        })
+            .then((response) => {
+                setdetectedLanguageKey(response.data[0].language)
+            })
+    }
+
+    // useEffect(() => {
+    //     axios.get(`https://libretranslate.de/languages`)
+    //         .then((response) => {
+    //             setLanguagesList(response.data)
+    //         })
+    // }, [])
+
+    useEffect(() => {
+        axios.get(`https://libretranslate.de/languages`)
+        .then((response) => {
+         setLanguagesList(response.data)
+        })
+ 
+        getLanguageSource()
+     }, [newFront])
+
+
+
+    const translateText = () => {
+        setNewBack('')
+        getLanguageSource();
+
+        let data = {
+            q : newFront,
+            source: detectLanguageKey,
+            target: selectedLanguageKey
+        }
+        axios.post(`https://libretranslate.de/translate`, data)
+        .then((response) => {
+            setNewBack(response.data.translatedText)
+        })
+    }
+    const languageKey = (selectedLanguage) => {
+        setLanguageKey(selectedLanguage.target.value)
+    }
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
@@ -98,13 +148,23 @@ const CreateCard = (props) => {
                     />
                     <Form.Control.Feedback type="invalid">{errors.front}</Form.Control.Feedback>
                 </Form.Group>
+                <select className="language-select" onChange={languageKey}>
+                            <option>Please Select Language..</option>
+                            {languagesList.map((language) => {
+                                return (
+                                    <option value={language.code}>
+                                        {language.name}
+                                    </option>
+                                )
+                            })}
+                        </select>
                 <Form.Group className="mb-3" controlId="Form.ControlInput3">
                     <Form.Label>back:</Form.Label>
                     <Form.Control
                         type="text"
                         placeholder={''}
                         value={newBack}
-                        onChange={handleBackChange}
+                        //onChange={handleBackChange}
                         isInvalid={ !!errors.back }
                     />
                     <Form.Control.Feedback type="invalid">{errors.back}</Form.Control.Feedback>
@@ -112,6 +172,10 @@ const CreateCard = (props) => {
             </Form>
         </Modal.Body>
         <Modal.Footer>
+                <Button 
+                variant="primary" 
+                onClick={translateText}
+                >Translate</Button>
             <Button 
                 variant="secondary" 
                 onClick={handleClose}
